@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+<script src="jquery-1.7.1.js"></script>
+<script src="tabs.js"></script>
+<style>
+*{margin:0;padding:0;}
+li{list-style:none;}
+.doc{width:400px;margin:20px auto;}
+.tab-example{width: 100%;margin:0 auto;}
+.tab-example .tab-hd{border-bottom: 2px solid #ddd;width:100%;}
+.tab-example .tab-hd li,.tab-example .tab-hd dd{display: inline-block;width:100px;width:49%;height: 25px;text-align: center;margin-bottom: -2px;}
+.tab-example .tab-hd li a,.tab-example .tab-hd dd a{text-decoration: none;color:#000;display: block;}
+.tab-example .tab-hd li.current,.tab-example .tab-hd dd.current{color: #f00;border-bottom: 2px solid #f00;}
+.tab-example .tab-hd li.current a,.tab-example .tab-hd dd.current a{color: #f00;}
+.tab-content{padding: 20px;text-align: center;}
+</style>
+<script>
+	$(function(){
+		$("#tabs").Tabs({
+			event:"click",
+			callback: function(){
+				console.log("callback...");
+			}
+		});
+
+		$("#tabs1").Tabs({
+			event:"click",
+			curCls: "current",
+			index: 0,
+			itemEl: "dd",
+			bodyEl: "li",
+			itemCls: ".tab-item",
+			bodyCls: ".content-item",
+			tabHeader: ".tab-hd",
+			tabBody: ".tab-content",
+			callback: function(){
+				console.log("callback...");
+			}
+		});
+	})
+</script>
+</head>
+<body>
+<div class="doc">
+<div class="tab-example" id="tabs">
+	<ul class="tab-hd">
+		<li class="current tab-item"><a href="#">tab1</a></li>
+		<li class="tab-item"><a href="#">tab2</a></li>
+	</ul>
+
+	<div class="tab-content">
+		<div class="content-item">
+			content1
+		</div>
+		<div class="content-item" style="display:none;">
+			content2
+		</div>
+	</div>
+</div>
+
+<div class="tab-example" id="tabs1">
+	<dl class="tab-hd">
+		<dd class="current tab-item"><a href="#">tab1</a></dd>
+		<dd class="tab-item"><a href="#">tab2</a></dd>
+	</dl>
+
+	<ul class="tab-content">
+		<li class="content-item">
+			content1
+		</li>
+		<li class="content-item" style="display:none;">
+			content2
+		</li>
+	</ul>
+</div>
+</div>
+</body>
+</html>
