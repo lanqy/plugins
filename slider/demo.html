@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        /**************************************banner*******************************/
+        
+        .index-banner {
+            position: relative;
+            z-index: 1;
+            height: 346px;
+            overflow: hidden;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .index-banner ul {
+            height: 346px;
+            position: absolute;
+            width: 50000px;
+        }
+        
+        .index-banner ul li {
+            float: left;
+            height: 346px;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+        }
+        
+        .index-banner ul li div {
+            position: absolute;
+            overflow: hidden;
+            z-index: 999
+        }
+        
+        .index-banner .control {
+            position: absolute;
+            height: 10px;
+            padding: 5px 10px;
+            bottom: 40px;
+            text-align: center;
+            z-index: 9999
+        }
+        
+        .index-banner .control span {
+            float: left;
+            _display: inline;
+            _zoom: 1;
+            _font-size: 0;
+            margin-left: 5px;
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            background: #666;
+            border-radius: 15px;
+        }
+        
+        .index-banner .control span.active {
+            background: #f00;
+        }
+        
+        .index-banner li {
+            float: left;
+            width: auto;
+            height: 346px;
+        }
+        
+        .index-banner {
+            width: auto;
+            height: 346px;
+        }
+        
+        .index-banner-scroll {
+            position: relative;
+            overflow: hidden;
+            width: 1920px;
+            height: 346px;
+        }
+        
+        .btn-group {
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .btn-group span {
+            display: inline-block;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/slider-plugin.js"></script>
+    <script>
+        $(function() {
+            $(".banner_box").slider({
+                containerEl: $(".index-banner-scroll"),
+                silderContainerEl: $("#index-banner ul"),
+                itemEl: $("#index-banner ul li"),
+                btnEl: $('.control span'),
+                btnContainerEl: $('.control'),
+                prev: $(".prev"),
+                next: $(".next"),
+                index: 0,
+                resizeable: true,
+                showButton: true
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="banner_box">
+        <div class="index-banner" id="index-banner">
+            <div class="index-banner-scroll">
+                <ul>
+                    <li>
+                        <a href="#" target="_blank" style="cursor: pointer;" style="cursor: default;">
+                            <img src="http://placehold.it/1920x346">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank" style="cursor: pointer;" style="cursor: default;">
+                            <img src="http://placehold.it/1920x346">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank" style="cursor: pointer;" style="cursor: default;">
+                            <img src="http://placehold.it/1920x346">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="control"><span class="" style="opacity: 1;"></span><span style="opacity: 1;" class="active"></span><span style="opacity: 1;"></span></div>
+        </div>
+    </div>
+    <div class="btn-group">
+        <span class="prev">Prev</span>
+        <span class="next">Next</span>
+    </div>
+</body>
+
+</html>
