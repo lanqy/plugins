@@ -1,0 +1,53 @@
+﻿<!doctype html>
+<html>
+<head>
+<script src='jquery-1.7.1.js'></script>
+<script src='select.js'></script>
+<link href='select.css' rel='stylesheet' />
+<style>
+*{margin:0;padding:0;}
+li{list-style:none;}
+.doc{width:400px;margin:20px auto;}
+</style>
+<script>
+	$(function(){
+		var s = $("#select").Select({
+          data: null,
+					width:143,
+          callback: function() {
+						console.log('callback...')
+          }
+		});
+		s.setValue(2);
+
+		$("#select2").Select({
+          data: null,
+					width:143,
+          callback: function() {
+						console.log('callback...')
+          }
+		});
+	})
+</script>
+</head>
+<body>
+<div class="doc">
+	<select id="select" class="select" style="visibility:hidden;">
+		<option value="1">text1</option>
+		<option value="2">text2</option>
+		<option value="3">text3</option>
+		<option value="4">text4</option>
+		<option value="5">text5</option>
+	</select>
+</div>
+<div class="doc">
+	<select id="select2" class="select" style="visibility:hidden;">
+		<option value="1">text12</option>
+		<option value="2">text2</option>
+		<option value="3">text3</option>
+		<option value="4">text4</option>
+		<option value="5">text5</option>
+	</select>
+</div>
+</body>
+</html>
