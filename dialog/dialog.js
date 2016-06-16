@@ -6,7 +6,7 @@
  * 	author:
  *     - lanqy 2015-12-28
  * 	github:
- *	   - https://github.com/lanqy/dialog
+ *	   - https://github.com/lanqy/plugins/dialog
  */
 (function($) {
 
