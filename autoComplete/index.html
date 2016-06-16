@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+  <head>
+    <title>auto complete</title>
+    <meta charset="utf-8" />
+    <script src="jquery.min.js"></script>
+    <script src="jquery.highlight-min.js"></script>
+    <script src="_autoComplete.js"></script>
+    <script>
+    $(function(){
+      var data = [{"1":"平台官网","2":"f","0":"no"},{"1":"易瑞特","2":"abcd","0":"yrt"},{"1":"亿起发","2":"abcd","0":"yqf"},{"1":"搜狗","2":"abcd","0":"sogou"},{"1":"网贷之家","2":"abcd","0":"wdzj"},{"1":"h5站","2":"abcd","0":"h5"},{"1":"新浪","2":"abcd","0":"sina"},{"1":"钱钱","2":"abcd","0":"money"},{"1":"网易","2":"abcd","0":"163"},{"1":"360","2":"abcd","0":"360"},{"1":"百度","2":"abcd","0":"baidu"}];
+      $("#t")._autoComplete({
+        hiddenId: 'hidenName',//隐藏域id
+        className: 'auto-box',//下拉容器的高度
+        listWidth: 400, //下拉的宽度
+        fields:['0','1','2'], // 需要匹配的字段key
+        data:data, //数据json
+        isInit:false, // 是否初始化下拉数据
+        listHeight: 90 //下拉高度
+      });
+
+      $("#tt")._autoComplete({
+        hiddenId: 'hidenNamet', //隐藏域id
+        className: 'auto-box',//下拉容器的高度
+        listWidth: 400, //下拉的宽度
+        fields:['0','1','2'], // 需要匹配的字段key
+        data:data, //数据json
+        isInit:false, // 是否初始化下拉数据
+        listHeight: 90 //下拉高度
+      });
+    });
+    </script>
+    <style>
+    *{margin:0;padding:0;}
+    .auto-box{pborder:1px solid #ddd;overflow: auto;}
+    .auto-box ul{width: 100%;}
+    .auto-box ul li{cursor: pointer;height: 30px;line-height: 30px;border-bottom: 1px solid #ddd;border-top: 1px solid #ddd;margin-top: -1px;padding-left: 4px;}
+    .auto-box ul li.selected{background: #f00;color: #fff;}
+    #t{margin-top: 30px;margin-left: 50px;}
+    .highlight{color: green;}
+    </style>
+  </head>
+  <body>
+    <input type="text" name="t" id="t" />
+    <input type="hidden" name="hidenName" id="hidenName" />
+      <input type="text" name="tt" id="tt" />
+      <input type="hidden" name="hidenNamet" id="hidenNamet" />
+  </body>
+</html>
