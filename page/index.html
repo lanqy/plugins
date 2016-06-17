@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>分页控件</title>
+    <link rel="stylesheet" type="text/css" href="css/page.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/page.js"></script>
+    <script>
+        $(function() {
+            var d = $(".page_box");
+            d.Page({
+                currPage: 1,
+                totalCount: 10,
+                totalPageCount: 100,
+                pageSize: 20,
+                showIndexPage: false,
+                showLastPage: false,
+                showPageCount: 5,
+                pageTitle: '',
+                url: null,
+                onPageClick: function(a) {
+                    console.log(a);
+                }
+            });
+
+            console.log(d.getOptions().currPage);
+        });
+    </script>
+</head>
+<body>
+    <div class="page_box page"></div>
+</body>
+</html>

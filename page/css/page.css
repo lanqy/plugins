@@ -1,0 +1,19 @@
+/*分页器*/
+.pageDivClass{margin:0 auto;text-align: center;width:800px;}
+.page span .num{ color:#FFB000; display: inline-block; clear:both;  font-style: normal;}
+.page a,.page span{float: left;font-size:12px;padding:0 10px;height: 28px;line-height: 28px;border:1px solid #D2D2D2;text-align: center;color: #666;text-decoration: none;}
+.page .per-page{margin-right: 10px;}
+.page .goto-page{margin:0 10px;}
+.page a.active{ background:#CFABCF ; color:white; border-color:#CFABCF!important;}
+.page span{border:none;padding:0;}
+.page input{width:28px;height: 28px;border:1px solid #D2D2D2;margin:0 6px;text-align: center;}
+.page .btnsure{width:58px;height: 28px;border:1px solid #D2D2D2;text-align: center;line-height: 28px;margin-left: 6px;}
+
+@font-face {font-family: 'iconfont';
+	src: url('../fonts/iconfont.eot'); /* IE9*/
+	src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+	url('../fonts/iconfont.woff') format('woff'), /* chrome、firefox */
+	url('../fonts/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+	url('../fonts/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+.iconfont{font-family:"iconfont" !important;font-size:10px;font-style:normal;-webkit-font-smoothing: antialiased;-webkit-text-stroke-width: 0;-moz-osx-font-smoothing: grayscale;display: inline-block;width:10px;height: 10px;line-height: 28px;color: #666666;}
