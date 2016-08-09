@@ -5,8 +5,6 @@
  *	   - jQuery 1.4.2+
  * 	author:
  *     - lanqy 2015-12-28
- * 	github:
- *	   - https://github.com/lanqy/plugins/dialog
  */
 (function($) {
 
@@ -43,6 +41,9 @@
             showFooter: true,
             onClose: false, // colse callback
             onOpen: false, // open callback
+            callback:false,
+            showLoading:false,
+            loadingTxt:'处理中...',
             onConfirm: false, // confirm callback
             onCannel: false, // cannel callback
             getContent: false // get Content callback
@@ -57,15 +58,24 @@
 
         _bindEvents: function() { // bind events
             var self = this;
-            this.element.delegate('.close','click',function(){
+
+            this.element.delegate('.close','click',function() {
                 self.close(self.options.onClose);
             });
 
             this.element.delegate('.cannel','click',function(){
-                self._cannel(self.options.onCannel);
+              self._cannel(self.options.onCannel);
             });
 
-            this.element.delegate('.confirm','click',function(){
+            this.element.delegate('.confirm','click',function() {
+
+                if($(this).hasClass('disable')){
+                  return;
+                }
+                if(self.options.showLoading){
+                  $(this).addClass('disable');
+                  $(this).html(self.options.loadingTxt);
+                }
                 self._confirm(self.options.onConfirm);
             });
 
@@ -105,6 +115,7 @@
 												'+ clBtn +'\
 											</div>\
 										</div>';
+
                 }
 
                 if(this.options.showFooter){
@@ -192,7 +203,7 @@
             $(".layer-box, .layer-box .back,.layer-box .lay").css({
                 width: this._getDocWidth(),
                 height: this._getDocHeight()
-            });
+            })
         },
 
         _getDocHeight: function() { // get document height
@@ -207,8 +218,12 @@
 
 
         _confirm: function(cb) { // confirm
-            this._hide(cb);
-            this.clearCache();
+            if(!this.options.callback){
+                this._hide(cb);
+                this.clearCache();
+            }else{
+              return cb();
+            }
         },
 
         _cannel: function(cb) { // cannel
@@ -238,7 +253,7 @@
             this.element.hide();
             $('.layer-box').hide();
             if (cb && (typeof(cb) === 'function')) {
-              this._callback(cb);
+                this._callback(cb);
             }
         },
 
@@ -252,6 +267,18 @@
             if (cb && (typeof(cb) === 'function')) {
                 cb();
             }
+        },
+
+        _getOptions: function(){
+          return this.options;
+        },
+
+        getElement: function(){
+          return this.element;
+        },
+
+        _setTxt: function(t){
+          return this.element.find('.confirm').html(t);
         }
     }
 
@@ -261,6 +288,21 @@
         },
         close: function(cb) {
             $(this).data("dialog") && $(this).data("dialog").close(cb)
+        },
+        clear: function(){
+            $(this).data("dialog") && $(this).data("dialog").clearCache()
+        },
+
+        getOptions: function(){
+          return $(this).data("dialog") && $(this).data("dialog")._getOptions()
+        },
+
+        getEl: function(){
+          return $(this).data("dialog") && $(this).data("dialog").getElement()
+        },
+
+        setTxt: function(t){
+          $(this).data("dialog") && $(this).data("dialog")._setTxt(t)
         }
     });
 
