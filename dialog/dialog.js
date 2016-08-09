@@ -31,7 +31,6 @@
     $.dialog.prototype = {
         options: {
             title: 'title', // title
-            showHeader:true, //
             dragable: false,
             cache: true, // jquery data，default true
             html: '', // html template
@@ -61,6 +60,7 @@
             this.element.delegate('.close','click',function(){
                 self.close(self.options.onClose);
             });
+
             this.element.delegate('.cannel','click',function(){
                 self._cannel(self.options.onCannel);
             });
@@ -77,12 +77,12 @@
             if (self.options.dragable) {
                 self._dragable();
             }
+
         },
 
         _build: function(html) { // build the template for dialog
             var html;
             var footer = '';
-            var header = '';
             var cfBtn ='';
             var clBtn ='';
             var bodyContent = '<div class="body-content"></div>';
@@ -105,14 +105,6 @@
 												'+ clBtn +'\
 											</div>\
 										</div>';
-
-                }
-
-                if(this.options.showHeader){
-                  header = '<div class="header">\
-          									<h2 style="width:' + this.options.width + 'px;">' + this.options.title + '</h2>\
-          									<s class="close">X</s>\
-          								</div>';
                 }
 
                 if(this.options.showFooter){
@@ -123,7 +115,10 @@
                 }
 
                 html = '<div class="dialog">\
-                '+ header +'\
+								<div class="header">\
+									<h2 style="width:' + this.options.width + 'px;">' + this.options.title + '</h2>\
+									<s class="close">X</s>\
+								</div>\
 								<div class="body" style="width:' + this.options.width + 'px;height:' + this.options.height + 'px;">\
 									'+ bodyContent +'\
 								</div>' + footer + '<iframe frameborder="0" border="0" class="lay"></div>';
@@ -197,7 +192,7 @@
             $(".layer-box, .layer-box .back,.layer-box .lay").css({
                 width: this._getDocWidth(),
                 height: this._getDocHeight()
-            })
+            });
         },
 
         _getDocHeight: function() { // get document height
@@ -212,28 +207,25 @@
 
 
         _confirm: function(cb) { // confirm
-            this._callback(cb);
-            this._hide();
+            this._hide(cb);
             this.clearCache();
         },
 
         _cannel: function(cb) { // cannel
-            this._callback(cb);
-            this._hide();
+            this._hide(cb);
             this.clearCache();
         },
 
         close: function(cb) { // close
-            this._callback(cb);
-            this._hide();
+            this._hide(cb);
             this.clearCache();
         },
 
         open: function(cb) { // open
             this._callback(cb);
             this.element.show();
-            $('.layer-box').show();
             this._center();
+            $('.layer-box:last').show();
             this._setLayerWidthHeight();
             this.clearCache();
         },
@@ -242,9 +234,12 @@
                 this.element.data('dialog', '');
             }
         },
-        _hide: function() { // hidden
+        _hide: function(cb) { // hidden
             this.element.hide();
             $('.layer-box').hide();
+            if (cb && (typeof(cb) === 'function')) {
+              this._callback(cb);
+            }
         },
 
         _callback: function(cb) { // callback
