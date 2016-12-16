@@ -58,21 +58,7 @@
         },
 
         _onChange: function(e) {
-            var self = this;
-            var target = e.currentTarget;
-            var $t = $(target);
-            var $sel = $t.find(":selected");
-            var v = $sel.attr("data-val");
-            var d = this.options.cityData;
-            if(v){
-              for (var key in d) {
-                  if (key === v) {
-                      self.renderToEl(e);
-                  }
-              }
-            }else{
-              self.renderToEl(e);
-            }
+            this.renderToEl(e);
         },
 
         renderToEl: function(e){
