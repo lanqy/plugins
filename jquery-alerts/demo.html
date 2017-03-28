@@ -23,6 +23,12 @@
 					//jAlert.error('这是error...');
 					//jAlert.success('success...');
 				});
+				
+				      jAlert.dialog($("#dialog__tpl").html(),function(r){
+					    if (r) {
+					      alert('这里处理跳转逻辑');
+					    }
+					  });
 
 				$("#alert_button_success").click(function(){
 					jAlert.success("这是成功提示框！",null,null,function(){
@@ -98,7 +104,15 @@ jConfirm('Can you confirm this?', 'Confirmation Dialog', function(r) {
 			</p>
 		</fieldset>
 	
-
+		<script type="text/template" id="dialog__tpl">
+		  <div class="widows-dialog" id="popup_container" style="background:#fff;min-width:initial;border:none;">
+			<a class="close" id="popup_hide">close</a>
+			<div class="dialog-down">
+				content
+				<a href="javascript:void(0)" id="popup_ok">button</a>
+			</div>
+		  </div>
+		</script>
 	</body>
 
 </html>
