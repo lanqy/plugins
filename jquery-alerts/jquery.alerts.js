@@ -99,8 +99,8 @@
                 $.alerts._hide();
                 if (callback) callback(null);
             });
-						$.alerts._setZindex();
-						$.alerts._resize();
+            $.alerts._setZindex();
+            $.alerts._resize();
             $.alerts._bindEvent();
         },
 
@@ -213,21 +213,21 @@
 
         _setConfig: function(title, type, msg) {
             if ($.alerts.dialogClass) $("#popup_container").addClass($.alerts.dialogClass);
-						$.alerts._setZindex();
+            $.alerts._setZindex();
             $("#popup_title").text(title);
             $("#popup_content").addClass(type);
             $("#popup_message").text(msg);
             $("#popup_message").html($("#popup_message").text().replace(/\n/g, '<br />'));
         },
 
-				_setZindex: function(){
-					$("#popup_container").css({
-							position: 'fixed',
-							zIndex: 99999,
-							padding: 0,
-							margin: 0
-					});
-				},
+        _setZindex: function() {
+            $("#popup_container").css({
+                position: 'fixed',
+                zIndex: 99999,
+                padding: 0,
+                margin: 0
+            });
+        },
 
         _resize: function() {
             $("#popup_container").css({
