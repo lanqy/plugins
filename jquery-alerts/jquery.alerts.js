@@ -63,7 +63,7 @@
         _customShow: function(title, msg, value, type, callback, closeCallback, html) {
             $.alerts._hide();
             $.alerts._overlay('show');
-            $.alerts.build(title, msg, value, type, callback, closeCallback);
+            $.alerts.build(title, msg, value, type, callback, closeCallback, html);
 
             $("#popup_content").after(html);
             $("#popup_ok").click(function() {
@@ -188,13 +188,6 @@
         },
 
         build: function(title, msg, value, type, callback, closeCallback) {
-            $.alerts._append(html);
-            $.alerts._setConfig(title, type, msg);
-            $.alerts._resize();
-        },
-
-        _append: function(html) {
-
             var tpl = '<div id="popup_container">' +
                 '<h1 id="popup_title"></h1>' +
                 '<a id="popup_hide" class="h-dialog_close">关闭</a>' +
@@ -203,12 +196,13 @@
                 '<div id="popup_message"></div>' +
                 '</div>' +
                 '</div>';
-
-            if (html) {
-                tpl = html;
-            }
-
             $("body").append(tpl);
+            $.alerts._setConfig(title, type, msg);
+            $.alerts._resize();
+        },
+
+        _append: function(html) {
+            $("body").append(html);
         },
 
         _setConfig: function(title, type, msg) {
@@ -287,13 +281,12 @@
         },
 
         _reposition: function() {
-            var top = (($(window).height() / 2) - ($("#popup_container").outerHeight() / 2)) + $.alerts.verticalOffset;
-            var left = (($(window).width() / 2) - ($("#popup_container").outerWidth() / 2)) + $.alerts.horizontalOffset;
+            var el = $("#popup_container");
+            var top = (($(window).height() / 2) - (el.outerHeight() / 2)) + $.alerts.verticalOffset;
+            var left = (($(window).width() / 2) - (el.outerWidth() / 2)) + $.alerts.horizontalOffset;
             if (top < 0) top = 0;
             if (left < 0) left = 0;
-
-
-            $("#popup_container").css({
+            el.css({
                 top: top + 'px',
                 left: left + 'px'
             });
