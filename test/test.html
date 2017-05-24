@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>新闻动态</title>
+	<link href="img/icn-logo.ico" rel="icon">
+	<link rel="stylesheet" href="page.css">
+	<script src="jquery-1.9.0.min.js"></script>
+	<script src="test.js"></script>
+	<script src="page.js"></script>
+	<script>
+		$(function(){
+			$("#page1").initPage({
+				listCount:data.result.totalElements,
+				currentPage:1,
+				pagelistcount: 1,
+				callback:function(page){
+					console.log(page);
+				}
+			});
+			$("#page2").initPage({
+				listCount:data.result.totalElements,
+				pagelistcount: 1,
+				currentPage:1,
+				callback:function(page){
+					console.log(page);
+				}
+			});
+		})
+	</script>
+	<style>
+		#page1 li{float:left;}
+	</style>
+</head>
+<body>
+	<ul id="page1" class="page"></ul>
+	<div></div>
+	<ul id="page2" class="page"></ul>
+</body>
+</html>
