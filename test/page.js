@@ -33,22 +33,6 @@
       this._initPage();
       this.bindEvents();
     },
-
-    _initPage: function() {
-
-      if (this.options.listCount < 0) {
-        this.options.listCount = 0;
-      }
-      if (this.options.currentPage <= 0) {
-        this.options.currentPage = 1;
-      }
-      this.setPageListCount(
-        this.options.listCount,
-        this.options.currentPage,
-        this.options.callback
-      );
-    },
-
     bindEvents: function() {
       var self = this;
       this.element.delegate('li.pageItem', 'click', function() {
@@ -61,33 +45,25 @@
       });
     },
 
-    initWithUl: function(totalPages, currentPage) {
+    _initPage: function() {
+      this.setPageListCount(this.options.listCount, this.options.currentPage);
+    },
+
+    initWithUl: function(listCount, currentPage) {
       var pageCount = 1;
-      if (totalPages >= 0) {
-        var pageCount = totalPages % this.options.pagelistcount > 0
-          ? parseInt(totalPages / this.options.pagelistcount) + 1
-          : parseInt(totalPages / this.options.pagelistcount);
+      if (listCount >= 0) {
+        var pageCount = listCount % this.options.pagelistcount > 0
+          ? parseInt(listCount / this.options.pagelistcount) + 1
+          : parseInt(listCount / this.options.pagelistcount);
       }
-
-      console.log('___________________',pageCount)
-
-      var appendStr = this.getPageListModel(parseInt(pageCount,10), currentPage);
+      var appendStr = this.getPageListModel(pageCount, currentPage);
 
       this.element.html(appendStr);
     },
-    /**
-     * 设置列表总量和当前页码
-     * @param listCount 列表总量
-     * @param currentPage 当前页码
-     */
-    setPageListCount: function(listCount, currentPage, callback) {
-
-      console.log('_________________',currentPage);
-
-      this.options.totalPages = parseInt(this.options.listCount);
-      this.options.currentPage = currentPage;
-      this.options.callback = callback;
-      this.initWithUl(listCount, currentPage);
+    setPageListCount: function(listCount, currentPage, fun) {
+      this.totalPages = parseInt(listCount);
+      this.currentPage = parseInt(currentPage);
+      this.initWithUl(this.totalPages, this.currentPage);
     },
     getPageListModel: function(pageCount, currentPage) {
       var prePage = currentPage - 1;
@@ -97,6 +73,7 @@
       if (prePage <= 0) {
         prePageClass = 'pageItemDisable';
       }
+
       if (nextPage > pageCount) {
         nextPageClass = 'pageItemDisable';
       }
@@ -108,7 +85,8 @@
         currentPage - parseInt(this.options.maxshowpageitem / 2) > 0 &&
         currentPage + parseInt(this.options.maxshowpageitem / 2) <= pageCount
       ) {
-        miniPageNumber = currentPage - parseInt(this.options.maxshowpageitem / 2);
+        miniPageNumber =
+          currentPage - parseInt(this.options.maxshowpageitem / 2);
       } else if (
         currentPage - parseInt(this.options.maxshowpageitem / 2) > 0 &&
         currentPage + parseInt(this.options.maxshowpageitem / 2) > pageCount
@@ -123,18 +101,12 @@
         showPageNum = pageCount;
       }
 
-
-      console.log('miniPageNumber_______________', miniPageNumber);
-
       for (var i = 0; i < showPageNum; i++) {
         var pageNumber = miniPageNumber++;
         var itemPageClass = 'pageItem';
         if (pageNumber == currentPage) {
           itemPageClass = 'pageItemActive';
         }
-
-        console.log(pageNumber);
-
         appendStr +=
           "<li class='" +
           itemPageClass +
