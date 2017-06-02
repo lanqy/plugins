@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Scroller demo</title>
+    <style>
+      *{margin:0;padding:0;}
+      li{list-style: none;}
+      .demo-mod{width: 900px;margin:0 auto;}
+      .demo-mod h2{font-size: 20px;margin-bottom: 10px;color: #666;}
+      .scroller-container{width: 900px;height: 300px;border:1px solid #ccc;position: relative;margin:30px auto 90px;}
+      .scroller-container a.next,.scroller-container a.prev{width: 20px;height: 69px;position: absolute;display: block;text-decoration: none;outline: none;}
+      .scroller-container a.next{top: 50%; margin-top:-34.5px;left: -43px; background: #fff url(oper-left.png) no-repeat center center;}
+      .scroller-container a.prev{top: 50%;right: -42px;margin-top:-34.5px;background: #fff url(oper-right.png) no-repeat center center;}
+      .scroller-content{width: 900px; height: 300px; position: relative; overflow: hidden;}
+      .scroller-content .list li{width:900px;height: 300px;background: #26A69A;color:#fff;float: left;line-height: 300px;text-align: center;font-size: 80px;}
+      .pagintion-container{width: 612px; margin: 0 auto; height: 32px; position: absolute; bottom: -60px; left: 0; right: 0;}
+      .pagintion-container{text-align: center;}
+      .pagintion-container li{display: inline-block;width:10px;height:10px;margin:0 6px;cursor: pointer;font-size: 0;text-indent: -9999px;overflow: hidden;border-radius: 5px;background: #ccc;}
+      .pagintion-container li.current{background: #333;}
+    </style>
+    <script src="jquery-1.9.0.min.js"></script>
+    <script src="scroller.js"></script>
+    <script>
+      $(function(){
+        $('#scroller').Scroller({ // PC
+            El: $('#scroller__container'), // 外层容器的id
+            listEl: $('#list'), // 滚动内容的容器id
+            navEl: $('#pagintion'), // 分页容器id
+            interval: 4000, // 自动滚动的定时器时间
+            showPage: true, // 默认显示底部分页
+            showNextPrev: true, // 默认显示上一页下一页按钮
+            next: '.next', // 下一页的样式，默认为.next
+            prev: '.prev', // 前一页的样式，默认为.prev
+            currentClass: 'current', // 当前分页的样式
+            pageItemClass: '.nav__item', // 底部分页的item的分页样式，默认为 .nav__item
+            listItemClass: '.list__item', // 需要滚动的item的分页样式，默认为.list__item
+            trigger: 'click', // 触发事件，可以为原生的mouseover等事件
+            autoscroll: false, // 是否自动滚动，默认为false
+            render: null, // 渲染页面的方法
+            callback: null, // 点击时回调
+        });
+
+        $('#scroller1').Scroller({ // PC
+            El: $('#scroller1__container'),
+            listEl: $('#list1'),
+            navEl: $('#pagintion1'),
+            showNextPrev:false,
+            showPage:true,
+            start_from: 2,
+            autoscroll: true,
+            trigger:'mouseover' // 触发类型
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="demo-mod">
+        <div class="scroller-container" id="scroller">
+            <a href="javascript:void(0)" class="next"></a>
+            <a href="javascript:void(0)" class="prev"></a>
+            <div class="scroller-content" id="scroller__container">
+                <ul class="list" id="list">
+                    <li class="list__item">1</li>
+                    <li class="list__item">2</li>
+                    <li class="list__item">3</li>
+                    <li class="list__item">4</li>
+                    <li class="list__item">5</li>
+                </ul>
+            </div>
+            <div class="pagintion-container">
+                <ul id="pagintion">
+                    <li class="nav__item">1</li>
+                    <li class="nav__item">2</li>
+                    <li class="nav__item">3</li>
+                    <li class="nav__item">4</li>
+                    <li class="nav__item">5</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-mod">
+        <h2>自动滚动，鼠标移上去分页自动切换</h2>
+        <div class="scroller-container" id="scroller1">
+            <a href="javascript:void(0)" class="next"></a>
+            <a href="javascript:void(0)" class="prev"></a>
+            <div class="scroller-content" id="scroller1__container">
+                <ul class="list" id="list1">
+                    <li class="list__item">1</li>
+                    <li class="list__item">2</li>
+                    <li class="list__item">3</li>
+                    <li class="list__item">4</li>
+                    <li class="list__item">5</li>
+                </ul>
+            </div>
+            <div class="pagintion-container">
+                <ul id="pagintion1">
+                    <li class="nav__item">1</li>
+                    <li class="nav__item">2</li>
+                    <li class="nav__item">3</li>
+                    <li class="nav__item">4</li>
+                    <li class="nav__item">5</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>
