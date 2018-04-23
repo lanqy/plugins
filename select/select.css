@@ -1,5 +1,5 @@
 .select{height: 29px;}
-.p-select-list{border:1px solid #799BD2;background:#fff;}
+.p-select-list{border:1px solid #799BD2;background:#fff;z-index:99999;}
 .p-select-list li{height:29px;line-height: 29px;padding:0 5px;}
 .p-select-list li.selected{background:#1E90FF;color:#fff;}
 .select-handler{position:absolute;background: #f00;height:29px;}
