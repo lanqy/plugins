@@ -6,20 +6,20 @@
  * 	author:
  *     - lanqy 2017-06-01
  */
-(function ($) {
+(function($) {
   $.extend($.fn, {
-    Scroller: function (options) {
-      return this.each(function () {
-        var Scroller = $.data(this, 'Scroller');
+    Scroller: function(options) {
+      return this.each(function() {
+        var Scroller = $.data(this, "Scroller");
         if (!Scroller) {
           Scroller = new $.Scroller(options, this);
-          $.data(this, 'Scroller', Scroller);
+          $.data(this, "Scroller", Scroller);
         }
       });
-    },
+    }
   });
 
-  $.Scroller = function (options, el) {
+  $.Scroller = function(options, el) {
     if (arguments.length) {
       this._init(options, el);
     }
@@ -33,19 +33,19 @@
       interval: 4000,
       showPage: true, // show page
       showNextPrev: true, // show next && prev button
-      next: '.next', // next button
-      prev: '.prev', // prev button
-      currentClass: 'current', // default current
-      pageItemClass: '.nav__item', // page class default .nav__item
-      listItemClass: '.list__item', // list item default .list__item
-      trigger: 'click', // trigger default click,it can be mouseover etc.
+      next: ".next", // next button
+      prev: ".prev", // prev button
+      currentClass: "current", // default current
+      pageItemClass: ".nav__item", // page class default .nav__item
+      listItemClass: ".list__item", // list item default .list__item
+      trigger: "click", // trigger default click,it can be mouseover etc.
       autoscroll: false, // auto scroll,default false
       start_from: 1, // start item
       render: null, // render data
-      callback: null, // callback function
+      callback: null // callback function
     },
 
-    _init: function (options, el) {
+    _init: function(options, el) {
       this.options = $.extend(true, {}, this.options, options);
       this.element = $(el);
       this.index = this.options.start_from;
@@ -72,7 +72,7 @@
       this.bindEvents();
     },
 
-    _setButton: function () {
+    _setButton: function() {
       if (!this.options.showNextPrev) {
         this.element.find(this.options.prev).hide();
         this.element.find(this.options.next).hide();
@@ -83,48 +83,48 @@
       }
     },
 
-    _setListWidth: function () {
-      this.options.listEl.css('width', this.listWidth);
+    _setListWidth: function() {
+      this.options.listEl.css("width", this.listWidth);
     },
 
-    bindEvents: function () {
+    bindEvents: function() {
       var self = this;
-      this.element.delegate(this.options.next, 'click', function (e) {
+      this.element.delegate(this.options.next, "click", function(e) {
         self._next(self.index);
       });
 
-      this.element.delegate(this.options.prev, 'click', function (e) {
+      this.element.delegate(this.options.prev, "click", function(e) {
         self._prev(self.index);
       });
 
       this.element.delegate(
         this.options.pageItemClass,
         this.options.trigger,
-        function (e) {
+        function(e) {
           var index = $(this).index();
           self._goto(index);
         }
       );
 
       if (this.options.autoscroll) {
-        this.element.delegate(this.options.next, 'hover', function (e) {
-          if (e.type === 'mouseenter') {
+        this.element.delegate(this.options.next, "hover", function(e) {
+          if (e.type === "mouseenter") {
             clearInterval(self.timer);
           } else {
             self._runAuto();
           }
         });
 
-        this.element.delegate(this.options.prev, 'hover', function (e) {
-          if (e.type === 'mouseenter') {
+        this.element.delegate(this.options.prev, "hover", function(e) {
+          if (e.type === "mouseenter") {
             clearInterval(self.timer);
           } else {
             self._runAuto();
           }
         });
 
-        this.element.delegate(this.options.pageItemClass, 'hover', function (e) {
-          if (e.type === 'mouseenter') {
+        this.element.delegate(this.options.pageItemClass, "hover", function(e) {
+          if (e.type === "mouseenter") {
             clearInterval(self.timer);
           } else {
             self._runAuto();
@@ -132,17 +132,17 @@
         });
 
         this.element.hover(
-          function () {
+          function() {
             clearInterval(self.timer);
           },
-          function () {
+          function() {
             self._runAuto();
           }
         );
       }
     },
 
-    _runAuto: function () {
+    _runAuto: function() {
       var self = this;
 
       if (this.timer) {
@@ -150,15 +150,16 @@
         clearInterval(this.timer);
       }
 
-      this.timer = setInterval(function () {
+      this.timer = setInterval(function() {
         self._autoscroll();
       }, this.options.interval);
     },
 
-    _setDefaultPos: function () {
-      this.options.start_from = this.options.start_from > this.Itemlength
-        ? this.Itemlength
-        : this.options.start_from;
+    _setDefaultPos: function() {
+      this.options.start_from =
+        this.options.start_from > this.Itemlength
+          ? this.Itemlength
+          : this.options.start_from;
 
       if (this.options.start_from) {
         var index = this.options.start_from - 1;
@@ -167,12 +168,12 @@
       }
     },
 
-    _justify: function () {
+    _justify: function() {
       // fixed pagiation to center
-      this.options.navEl.css('margin-left', -(this.navWidth / 2));
+      this.options.navEl.css("margin-left", -(this.navWidth / 2));
     },
 
-    _next: function (index) {
+    _next: function(index) {
       if (index - 1 < 0) {
         this.index = 0;
         return;
@@ -180,7 +181,7 @@
       this.index = index - 1;
       this._goto(this.index);
     },
-    _prev: function (index) {
+    _prev: function(index) {
       if (index + 1 > this.Itemlength - 1) {
         this.index = this.Itemlength - 1;
         return;
@@ -188,7 +189,7 @@
       this.index = index + 1;
       this._goto(this.index);
     },
-    _goto: function (index) {
+    _goto: function(index) {
       var self = this;
       this.index = index;
       this.element
@@ -198,27 +199,31 @@
         .find(this.options.pageItemClass)
         .eq(index)
         .addClass(this.options.currentClass);
-      this.options.listEl.stop(true, true).animate({
-        'margin-left': -(this.itemWidth * this.index),
-      }, 500, function () {
-        if (index + 1 > self.Itemlength - 1) {
-          $(self.options.prev).addClass('disable');
-          $(self.options.next).removeClass('disable');
-        } else if (index - 1 < 0) {
-          $(self.options.prev).removeClass('disable');
-          $(self.options.next).addClass('disable');
-        } else {
-          $(self.options.prev).removeClass('disable');
-          $(self.options.next).removeClass('disable');
+      this.options.listEl.stop(true, true).animate(
+        {
+          "margin-left": -(this.itemWidth * this.index)
+        },
+        500,
+        function() {
+          if (index + 1 > self.Itemlength - 1) {
+            self.element.find(self.options.prev).addClass("disable");
+            self.element.find(self.options.next).removeClass("disable");
+          } else if (index - 1 < 0) {
+            self.element.find(self.options.prev).removeClass("disable");
+            self.element.find(self.options.next).addClass("disable");
+          } else {
+            self.element.find(self.options.prev).removeClass("disable");
+            self.element.find(self.options.next).removeClass("disable");
+          }
         }
-      });
+      );
 
       if (this.options.callback) {
         this.options.callback(this.element, this.index); // pass element and index back
       }
     },
 
-    _autoscroll: function () {
+    _autoscroll: function() {
       if (this.index + 1 > this.Itemlength - 1) {
         this.index = 0;
       } else {
@@ -228,21 +233,29 @@
       this._goto(this.index);
     },
 
-    _setIndex: function (index) {
+    _setIndex: function(index) {
       this._goto(index);
     },
 
-    _getIndex: function () {
+    _getIndex: function() {
       return this.index;
-    },
+    }
   };
   $.extend($.fn, {
-    setIndex: function (index) {
-      $(this).data('Scroller') && $(this).data('Scroller')._setIndex(index);
+    setIndex: function(index) {
+      $(this).data("Scroller") &&
+        $(this)
+          .data("Scroller")
+          ._setIndex(index);
     },
 
-    getIndex: function () {
-      return $(this).data('Scroller') && $(this).data('Scroller')._getIndex();
-    },
+    getIndex: function() {
+      return (
+        $(this).data("Scroller") &&
+        $(this)
+          .data("Scroller")
+          ._getIndex()
+      );
+    }
   });
 })(jQuery);
